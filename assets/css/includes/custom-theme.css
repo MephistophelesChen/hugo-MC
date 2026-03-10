@@ -2,6 +2,7 @@
    新东方主义：康定斯基 x 中国写意画 视觉重构
    遵循：气韵生动、骨法用笔、置陈布势、隐性结构
 ========================================================================== */
+@import url('/css/includes/colors-generated.css');
 
 /* 1. 随类赋彩 (直接从 traditional-colors.json 颜色库取值，平涂不加渐变，体现包豪斯式的色彩纯粹性) */
 
@@ -14,22 +15,11 @@
 }
 
 :root {
-    /* 这些变量的十六进制值精确来自 traditional-colors.json，确保只使用官方色谱 */
-    --color-xuanzhi: #f9f4dc;     /* 乳白（"rubai"）– 宣纸肌理，提供温润留白空间 */
-    --color-nongmo: #0f1423;      /* 暗蓝近黑（"anlan"）作为主文本，避免纯黑的机械感 */
-    --color-danmo: #685e48;       /* 淡墨（"yanyuhui"），用于次要信息、元数据、英文 */
-
-    /* 康定斯基式的点缀色（同样出自传统矿物颜料色谱） */
-    --color-zhusha: #f2481b;      /* 施红（"shihong"）：最具张力的强调色 */
-    --color-shiqing: #1661ab;     /* 点青（"dianqing"）：冷静、深邃的线条与面 */
-    --color-tenghuang: #ffd111;   /* 藤黄（"tenghuang"）：明亮的提色 */
-
-    /* 通用界面色彩引用 */
-    --color-background: var(--color-xuanzhi);
-    --color-text: var(--color-nongmo);
-    --color-accent: var(--color-zhusha);
-    --color-secondary: var(--color-danmo);
-    --color-link: var(--color-nongmo);
+    --color-background: var(--color-rubai);
+    --color-text: var(--color-ganglan);
+    --color-accent: var(--color-shihong);
+    --color-secondary: var(--color-yanyuhui);
+    --color-link: var(--color-ganglan);
 
     /* 骨法用笔：引入 assets/fonts/ 目录中的自定义中英文字体 */
     --font-primary: '京華老宋体v3.0', 'Noto Serif SC', 'Songti SC', serif;
@@ -39,33 +29,32 @@
 /* 夜间模式变量覆盖；仅在没有显式 data-theme 时根据系统设置生效 */
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme]) {
-        --color-background: #0f1423;  /* 钢蓝 / 暗蓝接近黑 */
-        --color-text: #f9f4dc;        /* 乳白作为反色文本 */
-        --color-accent: #f2481b;      /* 朱砂保持高亮 */
-        --color-secondary: #685e48;   /* 淡墨用于辅助 */
-        /* 夜间链接用点青以避免与藤黄遮盖冲突 */
-        --color-link: var(--color-shiqing);
+        --color-background: var(--color-ganglan);
+        --color-text: var(--color-rubai);
+        --color-accent: var(--color-shihong);
+        --color-secondary: var(--color-yanyuhui);
+        --color-link: var(--color-dianqing);
     }
 }
 
 /* 手动类切换支持，兼容 PaperMod 的 html[data-theme] 机制 */
 html[data-theme="dark"],
 .dark-theme {
-    --color-background: #0f1423;
-    --color-text: #f9f4dc;
-    --color-accent: #f2481b;
-    --color-secondary: #685e48;
-    --color-link: var(--color-shiqing);
+    --color-background: var(--color-ganglan);
+    --color-text: var(--color-rubai);
+    --color-accent: var(--color-shihong);
+    --color-secondary: var(--color-yanyuhui);
+    --color-link: var(--color-dianqing);
 }
 
 /* 手动指定亮色时覆盖媒体查询的深色值 */
 html[data-theme="light"],
 .light-theme {
-    --color-background: var(--color-xuanzhi);
-    --color-text: var(--color-nongmo);
-    --color-accent: var(--color-zhusha);
-    --color-secondary: var(--color-danmo);
-    --color-link: var(--color-nongmo);
+    --color-background: var(--color-rubai);
+    --color-text: var(--color-ganglan);
+    --color-accent: var(--color-shihong);
+    --color-secondary: var(--color-yanyuhui);
+    --color-link: var(--color-ganglan);
 }
 
 
@@ -146,7 +135,7 @@ body::after {
     left: 5%;
     width: 200px;
     height: 200px;
-    background: var(--color-shiqing);
+    background: var(--color-dianqing);
     border-radius: 50%;
     opacity: 0.05;
     z-index: -1;
@@ -173,15 +162,15 @@ html[data-theme="light"] pre,
 html[data-theme="light"] code,
 html[data-theme="light"] div.highlight,
 html[data-theme="light"] pre.chroma {
-    background: #fff !important;
-    color: #0f1423 !important;
+    background: var(--color-background) !important;
+    color: var(--color-text) !important;
 }
 html[data-theme="dark"] pre,
 html[data-theme="dark"] code,
 html[data-theme="dark"] div.highlight,
 html[data-theme="dark"] pre.chroma {
-    background: #0f1423 !important;
-    color: #f9f4dc !important;
+    background: var(--color-background) !important;
+    color: var(--color-text) !important;
 }
 
 /* 通用备份，以防主题标记未设置 */
@@ -239,7 +228,7 @@ h1::before {
     top: 15px;
     width: 18px;
     height: 18px;
-    background-color: var(--color-zhusha);
+    background-color: var(--color-accent);
     border-radius: 50%; /* 纯粹的几何圆 */
     z-index: -1;
 }
@@ -275,7 +264,7 @@ blockquote::before {
     left: 0;
     width: 8px;
     height: 100%;
-    background-color: var(--color-shiqing);
+    background-color: var(--color-dianqing);
 }
 blockquote::after {
     content: '';
@@ -284,7 +273,7 @@ blockquote::after {
     left: 20px;
     width: 60px;
     height: 2px;
-    background-color: var(--color-zhusha);
+    background-color: var(--color-accent);
 }
 
 /* 5. 交互与超链接 (工业理性与手感结合) */
@@ -334,14 +323,14 @@ ul li::before {
     height: 0;
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
-    border-left: 8px solid var(--color-shiqing); /* 包豪斯风格的锐利三角形 */
+    border-left: 8px solid var(--color-dianqing); /* 包豪斯风格的锐利三角形 */
 }
 
 /* 7. 文章卡片 (取消物理边框，依靠色彩构成和留白) */
 .article-item {
     padding: 3rem 0;
     position: relative;
-    border-bottom: 1px solid rgba(127, 115, 98, 0.2);
+    border-bottom: 1px solid var(--color-shihong);
     transition: transform 0.4s ease;
 }
 
@@ -361,8 +350,8 @@ ul li::before {
 
 .article-meta .date {
     display: inline-block;
-    background-color: var(--color-nongmo);
-    color: var(--color-xuanzhi) !important;
+    background-color: var(--color-text);
+    color: var(--color-background) !important;
     padding: 0.2rem 0.6rem;
     margin-right: 1rem;
 }
@@ -414,7 +403,7 @@ header.site-header nav a::after {
     left: 0;
     width: 0%;
     height: 2px;
-    background-color: var(--color-zhusha);
+    background-color: var(--color-accent);
     transition: width 0.25s ease;
 }
 
