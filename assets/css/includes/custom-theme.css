@@ -4,9 +4,18 @@
 ========================================================================== */
 
 /* 1. 随类赋彩 (直接从 traditional-colors.json 颜色库取值，平涂不加渐变，体现包豪斯式的色彩纯粹性) */
+
+/* 定义自用字体 */
+@font-face {
+    font-family: '京華老宋体v3.0';
+    src: url('/assets/fonts/京華老宋体v3.0.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
     /* 这些变量的十六进制值精确来自 traditional-colors.json，确保只使用官方色谱 */
-    --color-xuanzhi: #f9f4dc;     /* 乳白（ull）– 宣纸肌理，提供温润留白空间 */
+    --color-xuanzhi: #f9f4dc;     /* 乳白（"rubai"）– 宣纸肌理，提供温润留白空间 */
     --color-nongmo: #0f1423;      /* 暗蓝近黑（"anlan"）作为主文本，避免纯黑的机械感 */
     --color-danmo: #685e48;       /* 淡墨（"yanyuhui"），用于次要信息、元数据、英文 */
 
@@ -15,9 +24,48 @@
     --color-shiqing: #1661ab;     /* 点青（"dianqing"）：冷静、深邃的线条与面 */
     --color-tenghuang: #ffd111;   /* 藤黄（"tenghuang"）：明亮的提色 */
 
+    /* 通用界面色彩引用 */
+    --color-background: var(--color-xuanzhi);
+    --color-text: var(--color-nongmo);
+    --color-accent: var(--color-zhusha);
+    --color-secondary: var(--color-danmo);
+    --color-link: var(--color-nongmo);
+
     /* 骨法用笔：引入 assets/fonts/ 目录中的自定义中英文字体 */
     --font-primary: '京華老宋体v3.0', 'Noto Serif SC', 'Songti SC', serif;
     --font-sans: 'Helvetica Neue', 'Arial', sans-serif; /* 用于少量工业感对比 */
+}
+
+/* 夜间模式变量覆盖；仅在没有显式 data-theme 时根据系统设置生效 */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        --color-background: #0f1423;  /* 钢蓝 / 暗蓝接近黑 */
+        --color-text: #f9f4dc;        /* 乳白作为反色文本 */
+        --color-accent: #f2481b;      /* 朱砂保持高亮 */
+        --color-secondary: #685e48;   /* 淡墨用于辅助 */
+        /* 夜间链接用点青以避免与藤黄遮盖冲突 */
+        --color-link: var(--color-shiqing);
+    }
+}
+
+/* 手动类切换支持，兼容 PaperMod 的 html[data-theme] 机制 */
+html[data-theme="dark"],
+.dark-theme {
+    --color-background: #0f1423;
+    --color-text: #f9f4dc;
+    --color-accent: #f2481b;
+    --color-secondary: #685e48;
+    --color-link: var(--color-shiqing);
+}
+
+/* 手动指定亮色时覆盖媒体查询的深色值 */
+html[data-theme="light"],
+.light-theme {
+    --color-background: var(--color-xuanzhi);
+    --color-text: var(--color-nongmo);
+    --color-accent: var(--color-zhusha);
+    --color-secondary: var(--color-danmo);
+    --color-link: var(--color-nongmo);
 }
 
 
@@ -28,15 +76,54 @@
     padding: 0;
 }
 
+/* 强制所有元素默认文字使用主题文本色，避免第三方组件灰白难辨 */
+body, body * {
+    color: var(--color-text) !important;
+}
+
+/* 表单与交互控件也遵循文本色 */
+input, textarea, select, button {
+    color: var(--color-text) !important;
+}
+input::placeholder, textarea::placeholder,
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder,
+input::-moz-placeholder, textarea::-moz-placeholder,
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+    color: var(--color-text) !important;
+    opacity: 0.6;
+}
+
 body {
-    background-color: var(--color-xuanzhi);
-    color: var(--color-nongmo);
+    background-color: var(--color-background);
+    color: var(--color-text);
     font-family: var(--font-primary);
     font-size: clamp(16px, 1.2vw, 20px); /* 响应式流体排版 */
     line-height: 2.4; /* 极大的行高，模拟书法行气 */
     letter-spacing: 0.08em;
     overflow-x: visible;
     position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 使所有链接颜色遵循统一变量，可在暗模式切换时反转 */
+a {
+    color: var(--color-link) !important;
+}
+
+/* 夜间模式的头部和脚注背景 */
+@media (prefers-color-scheme: dark) {
+    header.site-header,
+    html[data-theme="dark"] header.site-header,
+    .dark-theme header.site-header {
+        background-color: var(--color-background);
+        color: var(--color-text);
+    }
+    footer.site-footer,
+    html[data-theme="dark"] footer.site-footer,
+    .dark-theme footer.site-footer {
+        background-color: var(--color-text);
+        color: var(--color-background);
+    }
 }
 
 /* 隐性结构：贯穿全站的康定斯基式“线”与“点”，打破空白 */
@@ -47,9 +134,60 @@ body::before {
     right: 15%;
     width: 1px;
     height: 100vh;
-    background-color: var(--color-danmo);
+    background-color: var(--color-secondary);
     opacity: 0.3;
     z-index: -1;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    bottom: 10%;
+    left: 5%;
+    width: 200px;
+    height: 200px;
+    background: var(--color-shiqing);
+    border-radius: 50%;
+    opacity: 0.05;
+    z-index: -1;
+    transform: translate(-50%, 0) rotate(25deg);
+}
+
+/* 暗模式时线条颜色反向并稍微加亮，以便在暗背景上依旧可见 */
+@media (prefers-color-scheme: dark) {
+    body::before,
+    html[data-theme="dark"] body::before,
+    .dark-theme body::before {
+        background-color: var(--color-accent);
+        opacity: 0.2;
+    }
+    body::after,
+    html[data-theme="dark"] body::after,
+    .dark-theme body::after {
+        background: var(--color-tenghuang);
+        opacity: 0.08;
+    }
+}
+/* 强制对正文中的 pre/code 或 Hugo 的 highlight 组件生效 */
+html[data-theme="light"] pre,
+html[data-theme="light"] code,
+html[data-theme="light"] div.highlight,
+html[data-theme="light"] pre.chroma {
+    background: #fff !important;
+    color: #0f1423 !important;
+}
+html[data-theme="dark"] pre,
+html[data-theme="dark"] code,
+html[data-theme="dark"] div.highlight,
+html[data-theme="dark"] pre.chroma {
+    background: #0f1423 !important;
+    color: #f9f4dc !important;
+}
+
+/* 通用备份，以防主题标记未设置 */
+pre, code {
+    background-color: var(--color-background) !important;
+    color: var(--color-text) !important;
 }
 
 /* 3. 置陈布势 (打破对称的网格结构) */
@@ -75,7 +213,7 @@ body::before {
 /* 标题：摒弃粗体，依靠字号和几何装饰形成重量感 */
 h1, h2, h3 {
     font-weight: normal;
-    color: var(--color-nongmo);
+    color: var(--color-text);
     position: relative;
     margin-top: 4rem;
     margin-bottom: 2rem;
@@ -108,7 +246,7 @@ h1::before {
 
 h2 {
     font-size: 1.8rem;
-    border-bottom: 1px solid var(--color-nongmo);
+    border-bottom: 1px solid var(--color-text);
     display: inline-block;
     padding-bottom: 0.5rem;
 }
@@ -126,7 +264,7 @@ blockquote, .poetry-block {
     position: relative;
     font-size: 1.15rem;
     line-height: 2.8;
-    color: var(--color-nongmo);
+    color: var(--color-text);
 }
 
 /* 诗歌/引用的几何装饰（石青色的面与朱砂色的线交织） */
@@ -151,7 +289,7 @@ blockquote::after {
 
 /* 5. 交互与超链接 (工业理性与手感结合) */
 a {
-    color: var(--color-nongmo);
+    color: var(--color-link);
     text-decoration: none;
     position: relative;
     font-weight: bold;
@@ -214,7 +352,7 @@ ul li::before {
 .article-meta {
     font-family: var(--font-sans); /* 元数据用无衬线体，形成古典与现代的碰撞 */
     font-size: 0.85rem;
-    color: var(--color-danmo);
+    color: var(--color-secondary);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     display: block;
@@ -224,7 +362,7 @@ ul li::before {
 .article-meta .date {
     display: inline-block;
     background-color: var(--color-nongmo);
-    color: var(--color-xuanzhi);
+    color: var(--color-xuanzhi) !important;
     padding: 0.2rem 0.6rem;
     margin-right: 1rem;
 }
@@ -255,7 +393,7 @@ header.site-header {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: var(--color-xuanzhi);
+    background-color: var(--color-background);
     backdrop-filter: saturate(180%) blur(10px);
     z-index: 100;
     padding: 1rem 5vw;
@@ -264,7 +402,7 @@ header.site-header {
 header.site-header nav a {
     margin-right: 2rem;
     font-family: var(--font-sans);
-    color: var(--color-nongmo);
+    color: var(--color-text);
     text-decoration: none;
     position: relative;
 }
@@ -286,8 +424,8 @@ header.site-header nav a:hover::after {
 
 /* 页脚 */
 footer.site-footer {
-    background-color: var(--color-nongmo);
-    color: var(--color-xuanzhi);
+    background-color: var(--color-text);
+    color: var(--color-background);
     font-size: 0.9rem;
     text-align: center;
     padding: 3rem 1rem;
@@ -311,20 +449,20 @@ figure {
 figure img {
     max-width: 100%;
     height: auto;
-    border: 1px solid var(--color-danmo);
+    border: 1px solid var(--color-secondary);
 }
 
 figure figcaption {
     margin-top: 0.5rem;
     font-size: 0.85rem;
-    color: var(--color-danmo);
+    color: var(--color-secondary);
 }
 
 /* 代码块 */
 pre, code {
     font-family: monospace;
-    background-color: var(--color-xuanzhi);
-    color: var(--color-nongmo);
+    background-color: var(--color-background);
+    color: var(--color-text);
     padding: 0.5rem;
     border-radius: 4px;
     overflow-x: auto;
@@ -338,13 +476,39 @@ pre {
 hr {
     border: none;
     height: 1px;
-    background: var(--color-danmo);
+    background: var(--color-secondary);
     margin: 4rem 0;
 }
 
+/* 主题切换按钮 */
+.theme-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3rem;
+    background: var(--color-accent);
+    color: var(--color-background);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 200;
+    box-shadow: 0 0 0.5rem var(--color-secondary);
+    transition: background 0.3s, color 0.3s;
+}
+
+/* 暗模式下切换图标取反 */
+.dark-theme .theme-toggle {
+    background: var(--color-secondary);
+    color: var(--color-accent);
+}
+
 ::selection {
-    background: var(--color-zhusha);
-    color: var(--color-xuanzhi);
+    background: var(--color-accent);
+    color: var(--color-background);
 }
 
 /* 小屏幕下导航堆叠 */
