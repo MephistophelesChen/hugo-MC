@@ -1,0 +1,856 @@
+/* 新东方主义现代主义设计 - 融合包豪斯与中国传统艺术 */
+
+:root {
+    /* 基础间距系统 */
+    --gap: 24px;
+    --content-gap: 20px;
+    --nav-width: 1024px;
+    --main-width: 720px;
+    --header-height: 60px;
+    --footer-height: 60px;
+    --radius: 8px;
+
+/* 主题色 - 基于传统色与康定斯基理论 */
+--theme: rgb(249, 244, 220); /* 乳白 - 宣纸质感 */
+--entry: rgb(255, 255, 255); /* 入口背景 */
+--primary: rgb(26, 35, 50); /* 黛青 - 墨色浓重 */
+--secondary: rgb(108, 108, 108); /* 灰色 */
+--tertiary: rgb(214, 214, 214); /* 浅灰 */
+--content: rgb(31, 31, 31); /* 内容文字 */
+--code-block-bg: rgb(28, 29, 33); /* 代码块背景 */
+--code-bg: rgb(245, 245, 245); /* 代码背景 */
+--border: rgb(238, 238, 238); /* 边框 */
+--accent-red: rgb(252, 203, 22); /* 藤黄 - 中国红点缀 */
+--accent-blue: rgb(153, 181, 164); /* 天青 - 水墨深邃 */
+--accent-yellow: rgb(248, 223, 114); /* 茉莉黄 - 明亮活力 */
+--accent-black: rgb(26, 35, 50); /* 黛青 - 墨色浓重 */
+--accent-blue: rgb(153, 181, 164); /* 天青 - 水墨深邃 */
+--accent-yellow: rgb(248, 223, 114); /* 茉莉黄 - 明亮活力 */
+--accent-black: rgb(26, 35, 50); /* 黛青 - 墨色浓重 */
+--accent-blue: rgb(153, 181, 164); /* 天青 - 水墨深邃 */
+--accent-yellow: rgb(248, 223, 114); /* 茉莉黄 - 明亮活力 */
+--accent-black: rgb(26, 35, 50); /* 黛青 - 墨色浓重 */
+    --accent-blue: rgb(153, 181, 164); /* 天青 - 水墨深邃 */
+    --accent-yellow: rgb(248, 223, 114); /* 茉莉黄 - 明亮活力 */
+    --accent-black: rgb(26, 35, 50); /* 黛青 - 墨色浓重 */
+    color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+    --theme: rgb(29, 30, 32); /* 深色主题 */
+    --entry: rgb(46, 46, 51);
+    --primary: rgb(218, 218, 219);
+    --secondary: rgb(155, 156, 157);
+    --tertiary: rgb(65, 66, 68);
+    --content: rgb(196, 196, 197);
+    --code-block-bg: rgb(46, 46, 51);
+    --code-bg: rgb(55, 56, 62);
+    --border: rgb(51, 51, 51);
+    --accent-red: rgb(255, 179, 71); /* 深色主题下的红色 */
+    --accent-blue: rgb(102, 153, 179);
+    --accent-yellow: rgb(255, 204, 102);
+    --accent-black: rgb(196, 196, 197);
+    color-scheme: dark;
+}
+
+/* 几何构成 - 包豪斯基础 */
+body {
+    font-family: '京華老宋体v3.0', 'Noto Sans CJK SC', 'Source Han Sans', 'Microsoft YaHei', sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    word-break: break-word;
+    background: var(--theme);
+    color: var(--primary);
+}
+
+/* 非对称布局 - 动态平衡 */
+.main {
+    max-width: var(--nav-width);
+    margin: 0 auto;
+    padding: var(--gap);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap);
+}
+
+/* 几何容器 */
+article {
+    background: var(--entry);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: var(--gap);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 几何装饰线 */
+article::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg,
+        var(--accent-red) 0%,
+        var(--accent-blue) 33%,
+        var(--accent-yellow) 66%,
+        var(--accent-black) 100%);
+    z-index: 1;
+}
+
+/* 标题 - 几何化解构 */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-top: var(--gap);
+    margin-bottom: var(--content-gap);
+    color: var(--primary);
+    font-family: '京華老宋体v3.0', 'Noto Sans CJK SC', sans-serif;
+    position: relative;
+}
+
+h1::after,
+h2::after,
+h3::after,
+h4::after,
+h5::after,
+h6::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--accent-red);
+    border-radius: 1px;
+}
+
+/* 文字 - 骨法用笔 */
+.post-content p {
+    margin-bottom: var(--content-gap);
+    text-align: justify;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+/* 代码块 - 工业材质 */
+code {
+    background: var(--code-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Menlo', 'Consolas', 'Courier New', monospace;
+    color: var(--accent-black);
+    font-size: 0.9em;
+    border: 1px solid var(--border);
+}
+
+pre {
+    background: var(--code-block-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--gap);
+    overflow-x: auto;
+    margin-bottom: var(--content-gap);
+}
+
+/* 链接 - 动态效果 */
+a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+}
+
+a:hover {
+    color: var(--accent-red);
+    text-shadow: 0 0 4px rgba(252, 203, 22, 0.3);
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--accent-red);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    transform-origin: right;
+}
+
+a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* 列表 - 几何符号 */
+ul, ol {
+    padding-left: 24px;
+    margin-bottom: var(--content-gap);
+}
+
+ul li {
+    position: relative;
+    margin-bottom: 8px;
+}
+
+ul li::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 8px;
+    width: 6px;
+    height: 6px;
+    background: var(--accent-red);
+    border-radius: 50%;
+    transform: translateY(-50%);
+}
+
+/* 引用 - 水墨晕染 */
+blockquote {
+    background: linear-gradient(135deg,
+        rgba(153, 181, 164, 0.1) 0%,
+        rgba(248, 223, 114, 0.05) 100%);
+    border-left: 4px solid var(--accent-blue);
+    padding: var(--gap);
+    margin: var(--gap) 0;
+    border-radius: var(--radius);
+    font-style: italic;
+    color: var(--secondary);
+}
+
+/* 表格 - 几何边框 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    overflow-x: auto;
+    word-break: keep-all;
+    margin-bottom: var(--content-gap);
+    background: var(--entry);
+    border: 1px solid var(--border);
+}
+
+table th,
+table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+table th {
+    background: var(--accent-yellow);
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* 按钮 - 几何形状 */
+button,
+input[type="button"],
+input[type="submit"] {
+    background: var(--accent-red);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+    background: var(--accent-black);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 35, 50, 0.2);
+}
+
+/* 导航 - 极简功能 */
+nav {
+    background: var(--theme);
+    border-bottom: 1px solid var(--border);
+    padding: var(--gap);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* 页脚 - 留白艺术 */
+footer {
+    background: var(--entry);
+    border-top: 1px solid var(--border);
+    padding: var(--gap);
+    text-align: center;
+    color: var(--secondary);
+}
+
+/* 响应式设计 - 流动布局 */
+@media (max-width: 768px) {
+    .main {
+        grid-template-columns: 1fr;
+        gap: var(--gap);
+    }
+
+    article {
+        padding: var(--gap);
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+}
+
+/* 动画 - 气韵生动 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 渐入效果 */
+article {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* 滚动条 - 几何元素 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--theme);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-red);
+    border-radius: 4px;
+}
+
+/* 焦点状态 - 骨法用笔 */
+a:focus,
+button:focus,
+input:focus {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+/* 代码高亮 - 工业材质 */
+.highlight pre {
+    background: var(--code-block-bg) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius) !important;
+    padding: var(--gap) !important;
+}
+
+.highlight .c { color: var(--secondary) !important; }
+.highlight .k { color: var(--accent-blue) !important; }
+.highlight .o { color: var(--primary) !important; }
+.highlight .cm { color: var(--secondary) !important; }
+.highlight .cp { color: var(--accent-blue) !important; }
+.highlight .c1 { color: var(--secondary) !important; }
+.highlight .cs { color: var(--accent-blue) !important; }
+.highlight .gd { color: var(--accent-red) !important; }
+.highlight .ge { color: var(--primary) !important; font-style: italic; }
+.highlight .gr { color: var(--accent-red) !important; }
+.highlight .gh { color: var(--accent-blue) !important; }
+.highlight .gi { color: var(--accent-yellow) !important; }
+.highlight .go { color: var(--secondary) !important; }
+.highlight .gp { color: var(--primary) !important; }
+.highlight .gs { color: var(--primary) !important; }
+.highlight .gu { color: var(--accent-blue) !important; }
+.highlight .gt { color: var(--accent-red) !important; }
+.highlight .kc { color: var(--accent-blue) !important; }
+.highlight .kd { color: var(--primary) !important; }
+.highlight .kn { color: var(--accent-blue) !important; }
+.highlight .kp { color: var(--accent-blue) !important; }
+.highlight .kr { color: var(--accent-blue) !important; }
+.highlight .kt { color: var(--accent-yellow) !important; }
+.highlight .s { color: var(--accent-yellow) !important; }
+.highlight .na { color: var(--accent-blue) !important; }
+.highlight .nb { color: var(--primary) !important; }
+.highlight .nc { color: var(--accent-blue) !important; }
+.highlight .no { color: var(--accent-blue) !important; }
+.highlight .nd { color: var(--accent-blue) !important; }
+.highlight .ni { color: var(--accent-blue) !important; }
+.highlight .ne { color: var(--accent-red) !important; }
+.highlight .nf { color: var(--accent-blue) !important; }
+.highlight .nl { color: var(--primary) !important; }
+.highlight .nn { color: var(--accent-blue) !important; }
+.highlight .nt { color: var(--accent-blue) !important; }
+.highlight .nv { color: var(--primary) !important; }
+.highlight .ow { color: var(--accent-blue) !important; }
+.highlight .w { color: var(--secondary) !important; }
+.highlight .mb { color: var(--accent-yellow) !important; }
+.highlight .mf { color: var(--accent-yellow) !important; }
+.highlight .mh { color: var(--accent-yellow) !important; }
+.highlight .mi { color: var(--accent-yellow) !important; }
+.highlight .mo { color: var(--accent-yellow) !important; }
+.highlight .sb { color: var(--accent-yellow) !important; }
+.highlight .sc { color: var(--accent-yellow) !important; }
+.highlight .sd { color: var(--secondary) !important; }
+.highlight .s2 { color: var(--accent-yellow) !important; }
+.highlight .se { color: var(--accent-red) !important; }
+.highlight .sh { color: var(--accent-yellow) !important; }
+.highlight .si { color: var(--accent-yellow) !important; }
+.highlight .sx { color: var(--accent-yellow) !important; }
+.highlight .sr { color: var(--accent-blue) !important; }
+.highlight .s1 { color: var(--accent-yellow) !important; }
+.highlight .ss { color: var(--accent-yellow) !important; }
+.highlight .bp { color: var(--primary) !important; }
+.highlight .vc { color: var(--primary) !important; }
+.highlight .vg { color: var(--primary) !important; }
+.highlight .vi { color: var(--primary) !important; }
+/* 材质质感 - 工业vs自然 */
+body {
+    background-image:
+        /* 宣纸纹理 */
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(249, 244, 220, 0.05) 0%,
+            transparent 50%
+        ),
+        /* 水墨晕染 */
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(153, 181, 164, 0.03) 0%,
+            transparent 50%
+        );
+    background-attachment: fixed;
+    background-size: cover;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* 动态背景 - 气韵生动 */
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 首页背景 */
+.home-info {
+    background: linear-gradient(135deg,
+        rgba(249, 244, 220, 0.9) 0%,
+        rgba(255, 255, 255, 0.8) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(238, 238, 238, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* 文章列表卡片 */
+.post-single {
+    background: var(--entry);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: var(--gap);
+    margin-bottom: var(--gap);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.post-single::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent-red);
+    z-index: 1;
+}
+
+.post-single:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* 文章标题装饰 */
+.post-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: var(--content-gap);
+    color: var(--primary);
+    position: relative;
+}
+
+.post-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: var(--accent-blue);
+    border-radius: 1px;
+}
+
+/* 元信息 - 极简功能 */
+.post-meta {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-bottom: var(--content-gap);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+}
+
+/* 标签 - 几何形状 */
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: var(--content-gap);
+}
+
+.post-tags li {
+    background: var(--accent-yellow);
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* 导航菜单 - 极简主义 */
+nav .menu {
+    display: flex;
+    justify-content: center;
+    gap: var(--gap);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav .menu a {
+    color: var(--primary);
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    transition: all 0.3s ease;
+}
+
+nav .menu a:hover {
+    background: var(--accent-yellow);
+    color: var(--theme);
+}
+
+/* 搜索框 - 几何形状 */
+.search-box {
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto var(--gap);
+}
+
+.search-box input {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 8px;
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+.search-box input::placeholder {
+    color: var(--secondary);
+}
+
+/* 404页面 - 极简主义 */
+.error-page {
+    text-align: center;
+    padding: var(--gap);
+}
+
+.error-page h1 {
+    font-size: 3rem;
+    margin-bottom: var(--gap);
+    color: var(--accent-red);
+}
+
+/* 加载状态 - 气韵生动 */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--border);
+    border-top: 3px solid var(--accent-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 打印样式 - 功能主义 */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    .main,
+    nav,
+    footer,
+    .post-meta,
+    .post-tags,
+    .share-icons,
+    .comments {
+        display: none !important;
+    }
+
+    article {
+        background: white !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid !important;
+    }
+
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+
+/* 动画 - 骨法用笔 */
+@keyframes brushIn {
+    from {
+        stroke-dasharray: 0, 100;
+        opacity: 0;
+    }
+    to {
+        stroke-dasharray: 100, 100;
+        opacity: 1;
+    }
+}
+
+/* 自定义滚动条 - 几何元素 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--theme);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-red);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-black);
+}
+
+/* 焦点状态 - 骨法用笔 */
+*:focus {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+/* 暗色主题 - 功能主义 */
+[data-theme="dark"] {
+    --theme: rgb(29, 30, 32);
+    --entry: rgb(46, 46, 51);
+    --primary: rgb(218, 218, 219);
+    --secondary: rgb(155, 156, 157);
+    --tertiary: rgb(65, 66, 68);
+    --content: rgb(196, 196, 197);
+    --code-block-bg: rgb(46, 46, 51);
+    --code-bg: rgb(55, 56, 62);
+    --border: rgb(51, 51, 51);
+    --accent-red: rgb(255, 179, 71);
+    --accent-blue: rgb(102, 153, 179);
+    --accent-yellow: rgb(255, 204, 102);
+    --accent-black: rgb(196, 196, 197);
+}
+
+/* 动画 - 气韵生动 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 首页动画 */
+.home-info,
+.post-single {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* 响应式设计 - 流动布局 */
+@media (max-width: 640px) {
+    .main {
+        padding: var(--gap);
+    }
+
+    article {
+        padding: var(--gap);
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .post-meta {
+        flex-direction: column;
+        gap: 4px;
+    }
+}
+
+/* 打印样式 - 功能主义 */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+        font-family: 'Noto Sans CJK SC', 'Source Han Sans', 'Microsoft YaHei', sans-serif;
+    }
+
+    .main,
+    nav,
+    footer,
+    .post-meta,
+    .post-tags,
+    .share-icons,
+    .comments {
+        display: none !important;
+    }
+
+    article {
+        background: white !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid !important;
+    }
+
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    code,
+    pre {
+        background: #f8f9fa !important;
+        border: 1px solid #dee2e6 !important;
+    }
+}
+
+/* 材质质感 - 工业vs自然 */
+body {
+    background-image:
+        /* 宣纸纹理 */
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(249, 244, 220, 0.05) 0%,
+            transparent 50%
+        ),
+        /* 水墨晕染 */
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(153, 181, 164, 0.03) 0%,
+            transparent 50%
+        );
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+/* 暗色主题材质 */
+[data-theme="dark"] body {
+    background-image:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(29, 30, 32, 0.05) 0%,
+            transparent 50%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(46, 46, 51, 0.03) 0%,
+            transparent 50%
+        );
+}
+
+/* 自定义滚动条 - 几何元素 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--theme);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-red);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-black);
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+    :root {
+        --border: rgb(0, 0, 0);
+    }
+
+    :root[data-theme="dark"] {
+        --border: rgb(255, 255, 255);
+    }
+}
+
+/* 减少动画支持 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .loading {
+        display: none;
+    }
+}

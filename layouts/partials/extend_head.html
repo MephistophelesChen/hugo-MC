@@ -1,3 +1,42 @@
+{{/* 自定义主题样式 */}}
+{{/* 字体资源 */}}
+{{- $font := resources.Get "fonts/京華老宋体v3.0.ttf" | fingerprint }}
+<style>
+@font-face {
+    font-family: '京華老宋体v3.0';
+    src: local('京華老宋体v3.0'), url('{{ $font.RelPermalink }}') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: '京華老宋体v3.0';
+    src: local('京華老宋体v3.0'), url('{{ $font.RelPermalink }}') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: '京華老宋体v3.0';
+    src: local('京華老宋体v3.0'), url('{{ $font.RelPermalink }}') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+</style>
+
+{{/* 按需加载 custom-theme: 查找项目 assets，失败时回退到主题 */}}
+{{- $custom_theme := resources.Get "css/includes/custom-theme.css" | resources.Minify }}
+{{- if $custom_theme }}
+    {{- if not site.Params.assets.disableFingerprinting }}
+        {{- $custom_theme = $custom_theme | fingerprint }}
+        {{- $integrity := $custom_theme.Data.Integrity }}
+        <link crossorigin="anonymous" href="{{ $custom_theme.RelPermalink }}" integrity="{{ $integrity }}" rel="stylesheet">
+    {{- else }}
+        <link crossorigin="anonymous" href="{{ $custom_theme.RelPermalink }}" rel="stylesheet">
+    {{- end }}
+{{- end }}
+
 {{- /* Head custom content area start */ -}}
 {{- /*     Insert any custom code (web-analytics, resources, etc.) - it will appear in the <head></head> section of every page. */ -}}
 {{- /*     Can be overwritten by partial with the same name in the global layouts. */ -}}
