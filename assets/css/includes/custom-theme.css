@@ -1,7 +1,3 @@
-/* ==========================================================================
-   新东方主义：康定斯基 x 中国写意画 视觉重构
-   遵循：气韵生动、骨法用笔、置陈布势、隐性结构
-========================================================================== */
 @import url('/css/includes/colors-generated.css');
 
 /* 1. 随类赋彩 (直接从 traditional-colors.json 颜色库取值，平涂不加渐变，体现包豪斯式的色彩纯粹性) */
@@ -15,6 +11,10 @@
 }
 
 :root {
+    /* 日月色彩（太阳黄 / 月亮乳白） */
+    --sun-color: var(--color-tenghuang);
+    --moon-color: var(--color-rubai);
+
     --color-background: var(--color-rubai);
     --color-text: var(--color-ganglan);
     --color-accent: var(--color-shihong);
@@ -91,7 +91,8 @@ body {
     letter-spacing: 0.08em;
     overflow-x: visible;
     position: relative;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    /* make the color transition last a bit longer so the theme swap feels tied to the sun/moon animation */
+    transition: background-color 0.8s ease, color 0.8s ease;
 }
 
 /* 使所有链接颜色遵循统一变量，可在暗模式切换时反转 */
@@ -115,31 +116,63 @@ a {
     }
 }
 
-/* 隐性结构：贯穿全站的康定斯基式“线”与“点”，打破空白 */
+/* 隐性结构：贯穿全站的“线”与“点”，打破空白 */
+/* horizon line: a thin horizontal ‘地平线’ at the bottom of the page */
 body::before {
     content: '';
     position: fixed;
-    top: 0;
-    right: 15%;
-    width: 1px;
-    height: 100vh;
+    left: 0;
+    bottom: 0; /* sit at background bottom */
+    width: 100vw;
+    height: 1px;
     background-color: var(--color-secondary);
     opacity: 0.3;
     z-index: -1;
 }
 
-body::after {
-    content: '';
+/* orbit container and the sun/moon circle inside it */
+#orbit-container {
     position: fixed;
-    bottom: 10%;
-    left: 5%;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vw;
+    pointer-events: none;
+    overflow: visible;
+    /* pivot located 50vw below the bottom edge so rotation sweeps the
+       child along a clockwise upper arc (above the bottom line) */
+    transform-origin: 50% calc(100% + 50vw);
+}
+
+#orbit-circle {
+    position: absolute;
+    /* shift a bit further right/up to nudge centre off left-bottom, but keep within viewport */
+    left: 50px;
+    bottom: 50px;
     width: 200px;
     height: 200px;
-    background: var(--color-dianqing);
     border-radius: 50%;
-    opacity: 0.05;
-    z-index: -1;
-    transform: translate(-50%, 0) rotate(25deg);
+    opacity: 0.8;
+    background: var(--sun-color);
+}
+
+/* apply animation when the container has the anim class */
+#orbit-container.anim {
+    animation: rotateArc 1.6s ease-in-out forwards;
+}
+#orbit-container.anim #orbit-circle {
+    animation: colorSwap 1.6s ease-in-out forwards;
+}
+
+@keyframes rotateArc {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes colorSwap {
+    0% { background: var(--swatch-start); }
+    50% { background: var(--swatch-end); }
+    100% { background: var(--swatch-end); }
 }
 
 /* 暗模式时线条颜色反向并稍微加亮，以便在暗背景上依旧可见 */
@@ -150,12 +183,7 @@ body::after {
         background-color: var(--color-accent);
         opacity: 0.2;
     }
-    body::after,
-    html[data-theme="dark"] body::after,
-    .dark-theme body::after {
-        background: var(--color-tenghuang);
-        opacity: 0.08;
-    }
+    /* circle color handled by theme-specific rule earlier */
 }
 /* 强制对正文中的 pre/code 或 Hugo 的 highlight 组件生效 */
 html[data-theme="light"] pre,
@@ -220,7 +248,6 @@ h1 {
     overflow: visible;
 }
 
-/* 康定斯基的“圆”与写意画的“印章”融合 */
 h1::before {
     content: '';
     position: absolute;
@@ -284,8 +311,8 @@ a {
     font-weight: bold;
 }
 
-/* 悬停时的几何色块遮盖效果 */
-a::after {
+/* 悬停时的几何色块遮盖效果 (不作用于回到顶部按钮) */
+a:not(.top-link)::after {
     content: '';
     position: absolute;
     bottom: 2px;
@@ -297,7 +324,7 @@ a::after {
     transition: height 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-a:hover::after {
+a:not(.top-link):hover::after {
     height: 100%; /* 藤黄色块向上展开，淹没文字背景 */
 }
 
