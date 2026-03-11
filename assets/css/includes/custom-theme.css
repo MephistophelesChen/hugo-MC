@@ -139,6 +139,7 @@ body::before {
     height: 100vw;
     pointer-events: none;
     overflow: visible;
+    z-index: 10002; /* must be above opening-animation (9999) */
     transform-origin: 50% calc(100% + 50vw);
 }
 

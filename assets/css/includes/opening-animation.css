@@ -83,19 +83,24 @@
 
 /* default gradient corresponds to daytime palette */
 :root {
-  /* daytime gradient—avoid using --color-tenghuang (sun) so the background
-     doesn't visually merge with the moving circle. use cooler hues instead. */
+  /* qinglü shanshui inspired daytime gradient: mineral blues/greens */
   --opening-bg: linear-gradient(135deg,
-       var(--color-xingrenhuang) 0%,
-       var(--color-molihuang) 25%,
-       var(--color-shihong) 50%,
-       var(--color-dankehuang) 75%,
-       var(--color-ezhanghuang) 100%);
+       var(--color-qingshuilan) 0%,
+       var(--color-qingfanlv) 25%,
+       var(--color-biqing) 50%,
+       var(--color-qingtinglan) 75%,
+       var(--color-haiqing) 100%);
 }
 
 /* darker variant for night mode */
 html[data-theme="dark"] {
-  --opening-bg: linear-gradient(135deg, var(--color-ganglan) 0%, var(--color-dianqing) 25%, var(--color-rubai) 50%, var(--color-ganglan) 75%, var(--color-ganglan) 100%);
+  /* darker qinglü palette for night, anchored in deep indigo/green */
+  --opening-bg: linear-gradient(135deg,
+        var(--color-qinghui) 0%,
+        var(--color-gangqing) 25%,
+        var(--color-qingshuilan) 50%,
+        var(--color-qingfanlv) 75%,
+        var(--color-gangqing) 100%);
 }
 
 /* 播放时加上类名：容器可见，但真正的移动由 JS 控制 */
@@ -116,7 +121,7 @@ html[data-theme="dark"] {
 /* 山峰元素 */
 .mountain {
   fill: none;
-  stroke: var(--color-shihong);
+  stroke: var(--color-qingfanlv);
   stroke-width: 3;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -125,21 +130,21 @@ html[data-theme="dark"] {
 
 /* 云彩元素 */
 .cloud {
-  fill: var(--color-rubai);
+  fill: var(--color-qingshuilan);
   opacity: 0.8;
   animation: cloudFloat 3s ease-out forwards;
 }
 
 /* 墨点效果 */
 .ink-dot {
-  fill: var(--color-ganglan);
+  fill: var(--color-qingtinglan);
   animation: inkSplash 1.5s ease-out forwards;
 }
 
 /* 书法笔画 */
 .stroke {
   fill: none;
-  stroke: var(--color-ganglan);
+  stroke: var(--color-qingfanlv);
   stroke-width: 2;
   animation: strokeDraw 1s ease-out forwards;
 }
@@ -154,7 +159,7 @@ html[data-theme="dark"] {
 /* 几何元素 */
 .geometric-shape {
   fill: none;
-  stroke: var(--color-dianqing);
+  stroke: var(--color-qingshuilan);
   stroke-width: 2;
   animation: mountainRise 2s ease-out forwards;
 }

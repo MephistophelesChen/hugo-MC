@@ -31,24 +31,24 @@
     <!-- 次云彩 - 书法线条感 -->
     <path d="M 600 220 Q 650 180 700 240 Q 750 300 800 220"
           class="stroke"
-          style="stroke:var(--color-rubai); animation-delay: 0.8s;" />
+          style="stroke:var(--color-qingshuilan); animation-delay: 0.8s;" />
 
     <path d="M 850 200 Q 900 160 950 220 Q 1000 280 1050 200"
           class="stroke"
-          style="stroke:var(--color-rubai); animation-delay: 1.0s;" />
+          style="stroke:var(--color-qingshuilan); animation-delay: 1.0s;" />
   </g>
 
   <!-- 墨点效果 - 康定斯基抽象表现主义 -->
   <g class="ink-dot-layer" data-depth="1.0">
-    <!-- 主墨点 - 朱砂色 -->
+    <!-- 主墨点 - 朱砂色，保留少许暖对比 -->
     <circle cx="400" cy="400" r="30" class="ink-dot" style="fill:var(--color-shihong); animation-delay: 0.5s;" />
     <circle cx="600" cy="450" r="25" class="ink-dot" style="fill:var(--color-shihong); animation-delay: 0.7s;" />
     <circle cx="800" cy="380" r="35" class="ink-dot" style="fill:var(--color-shihong); animation-delay: 0.9s;" />
 
-    <!-- 辅助墨点 - 石青色 -->
-    <circle cx="500" cy="350" r="20" class="ink-dot" style="fill:var(--color-ganglan); animation-delay: 0.6s;" />
-    <circle cx="700" cy="420" r="22" class="ink-dot" style="fill:var(--color-ganglan); animation-delay: 0.8s;" />
-    <circle cx="900" cy="360" r="28" class="ink-dot" style="fill:var(--color-ganglan); animation-delay: 1.0s;" />
+    <!-- 辅助墨点 - 青绿系加强气韵 -->
+    <circle cx="500" cy="350" r="20" class="ink-dot" style="fill:var(--color-qingtinglan); animation-delay: 0.6s;" />
+    <circle cx="700" cy="420" r="22" class="ink-dot" style="fill:var(--color-qingfanlv); animation-delay: 0.8s;" />
+    <circle cx="900" cy="360" r="28" class="ink-dot" style="fill:var(--color-qingshuilan); animation-delay: 1.0s;" />
   </g>
 
   <!-- 康定斯基几何元素层 -->
