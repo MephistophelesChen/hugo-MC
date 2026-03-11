@@ -139,8 +139,6 @@ body::before {
     height: 100vw;
     pointer-events: none;
     overflow: visible;
-    /* pivot located 50vw below the bottom edge so rotation sweeps the
-       child along a clockwise upper arc (above the bottom line) */
     transform-origin: 50% calc(100% + 50vw);
 }
 
@@ -511,7 +509,7 @@ hr {
     justify-content: center;
     font-size: 1.5rem;
     cursor: pointer;
-    z-index: 200;
+    z-index: 100;
     box-shadow: 0 0 0.5rem var(--color-secondary);
     transition: background 0.3s, color 0.3s;
 }

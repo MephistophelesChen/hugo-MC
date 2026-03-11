@@ -1,0 +1,285 @@
+/* 整合中国画与包豪斯设计美学主题 - 文人山水动画开场 */
+/* 基于康定斯基composition系列的抽象表现主义风格 */
+
+/* 动画开场 - 文人山水动态画卷 */
+@keyframes scrollLandscape {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    /* move downward instead of upward */
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes mountainRise {
+  0% {
+    transform: translateY(100vh) scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes cloudFloat {
+  0% {
+    transform: translateX(-100vw) translateY(-50vh) scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(50vw) translateY(-50vh) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(200vw) translateY(-50vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes inkSplash {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1) rotate(180deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.5) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes strokeDraw {
+  0% {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* 开场容器 */
+#opening-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--opening-bg);
+  z-index: 9999; /* ensure overlay covers page content */
+  overflow: hidden;
+  display: none; /* hidden until triggered */
+  justify-content: center;
+  align-items: center;
+}
+
+/* default gradient corresponds to daytime palette */
+:root {
+  /* daytime gradient—avoid using --color-tenghuang (sun) so the background
+     doesn't visually merge with the moving circle. use cooler hues instead. */
+  --opening-bg: linear-gradient(135deg,
+       var(--color-xingrenhuang) 0%,
+       var(--color-molihuang) 25%,
+       var(--color-shihong) 50%,
+       var(--color-dankehuang) 75%,
+       var(--color-ezhanghuang) 100%);
+}
+
+/* darker variant for night mode */
+html[data-theme="dark"] {
+  --opening-bg: linear-gradient(135deg, var(--color-ganglan) 0%, var(--color-dianqing) 25%, var(--color-rubai) 50%, var(--color-ganglan) 75%, var(--color-ganglan) 100%);
+}
+
+/* 播放时加上类名：容器可见，但真正的移动由 JS 控制 */
+#opening-animation.play {
+  display: flex;
+  /* animation intentionally removed; individual layers are animated in JS for depth effect */
+}
+
+/* 文人山水SVG画卷 */
+#landscape-scroll {
+  width: 100%;
+  height: 200%;
+  transform: translateY(0);
+  /* outer scrolling handled by individual group animations */
+}
+
+
+/* 山峰元素 */
+.mountain {
+  fill: none;
+  stroke: var(--color-shihong);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: mountainRise 2s ease-out forwards;
+}
+
+/* 云彩元素 */
+.cloud {
+  fill: var(--color-rubai);
+  opacity: 0.8;
+  animation: cloudFloat 3s ease-out forwards;
+}
+
+/* 墨点效果 */
+.ink-dot {
+  fill: var(--color-ganglan);
+  animation: inkSplash 1.5s ease-out forwards;
+}
+
+/* 书法笔画 */
+.stroke {
+  fill: none;
+  stroke: var(--color-ganglan);
+  stroke-width: 2;
+  animation: strokeDraw 1s ease-out forwards;
+}
+
+/* 水墨渐变效果 */
+.water-ink {
+  fill: url(#waterInkGradient);
+  opacity: 0.7;
+  animation: mountainRise 2s ease-out forwards;
+}
+
+/* 几何元素 */
+.geometric-shape {
+  fill: none;
+  stroke: var(--color-dianqing);
+  stroke-width: 2;
+  animation: mountainRise 2s ease-out forwards;
+}
+
+.circle {
+  animation: inkSplash 1.5s ease-out forwards;
+}
+
+.triangle {
+  animation: inkSplash 1.5s ease-out forwards;
+}
+
+.line {
+  animation: strokeDraw 1s ease-out forwards;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  #opening-animation {
+    font-size: 14px;
+  }
+
+  #landscape-scroll {
+    height: 300%;
+  }
+
+  .mountain {
+    stroke-width: 2;
+  }
+
+  .cloud {
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 480px) {
+  #opening-animation {
+    font-size: 12px;
+  }
+
+  #landscape-scroll {
+    height: 400%;
+  }
+
+  .geometric-shape {
+    stroke-width: 1;
+  }
+}
+
+/* 动画结束后的页面过渡 */
+body.loaded #opening-animation {
+  display: none;
+}
+
+/* 主题切换按钮的显隐由脚本控制，仅在开始动画时暂时隐藏 */
+
+body.loaded {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* 防止页面抖动 */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* 确保动画在页面加载时自动触发
+   此逻辑也由 JS 处理，删除无效的 CSS/JS 混合代码。 */
+
+/* 添加触觉反馈 */
+#opening-animation {
+  cursor: pointer;
+  user-select: none;
+}
+
+#opening-animation:active {
+  transform: scale(0.98);
+}
+
+/* 性能优化 */
+#opening-animation {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* 辅助功能 - 可跳过动画 */
+.skip-animation {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: var(--color-ganglan);
+  background: var(--color-rubai);
+  padding: 10px 20px;
+  border: 2px solid var(--color-ganglan);
+  border-radius: 25px;
+  cursor: pointer;
+  z-index: 10000;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+html[data-theme="dark"] .skip-animation {
+  color: var(--color-rubai);
+  background: var(--color-ganglan);
+}
+
+.skip-animation:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.skip-animation:focus {
+  outline: 2px solid var(--color-shihong);
+  outline-offset: 2px;
+}

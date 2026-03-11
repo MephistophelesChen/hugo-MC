@@ -1,0 +1,10 @@
+{{/* 额外的页脚脚本 */}}
+{{- $script := resources.Get "js/opening-animation.js" | resources.Minify }}
+{{- if $script }}
+    {{- if not site.Params.assets.disableFingerprinting }}
+        {{- $script = $script | fingerprint }}
+        <script crossorigin="anonymous" integrity="{{ $script.Data.Integrity }}" src="{{ $script.RelPermalink }}" defer></script>
+    {{- else }}
+        <script src="{{ $script.RelPermalink }}" defer></script>
+    {{- end }}
+{{- end }}

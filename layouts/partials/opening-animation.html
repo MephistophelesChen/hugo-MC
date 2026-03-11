@@ -1,0 +1,7 @@
+{{/* 开场动画容器。只在首页显示，用于遮罩博客首页内容。 */}}
+{{ if .IsHome }}
+<div id="opening-animation">
+  <button class="skip-animation" id="skip-animation">跳过动画</button>
+  {{ partial "opening-animation.svg" . }}
+</div>
+{{ end }}

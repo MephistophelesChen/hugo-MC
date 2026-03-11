@@ -37,6 +37,18 @@
     {{- end }}
 {{- end }}
 
+{{/* 同样加载开场动画的样式 */}}
+{{- $openanim := resources.Get "css/includes/opening-animation.css" | resources.Minify }}
+{{- if $openanim }}
+    {{- if not site.Params.assets.disableFingerprinting }}
+        {{- $openanim = $openanim | fingerprint }}
+        {{- $integrity := $openanim.Data.Integrity }}
+        <link crossorigin="anonymous" href="{{ $openanim.RelPermalink }}" integrity="{{ $integrity }}" rel="stylesheet">
+    {{- else }}
+        <link crossorigin="anonymous" href="{{ $openanim.RelPermalink }}" rel="stylesheet">
+    {{- end }}
+{{- end }}
+
 {{- /* Head custom content area start */ -}}
 {{- /*     Insert any custom code (web-analytics, resources, etc.) - it will appear in the <head></head> section of every page. */ -}}
 {{- /*     Can be overwritten by partial with the same name in the global layouts. */ -}}
